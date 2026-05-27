@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumme — Consultoria Notion com Amanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --sand: #EDE4D5;
+    --terracota: #C4714A;
+    --terracota-dark: #A5572D;
+    --forest: #3D5246;
+    --bark: #7A5C44;
+    --charcoal: #2C2825;
+    --muted: #8A7E75;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--forest);
+    color: var(--sand);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .topbar a { color: var(--sand); text-decoration: underline; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 5vw;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--forest);
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracota); }
+  .nav-cta {
+    background: var(--terracota);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 100px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--terracota-dark) !important; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0;
+    padding: 0 5vw;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-text { padding-right: 4vw; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--sand);
+    color: var(--bark);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracota);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--terracota);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--terracota-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--forest);
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: 1.5px solid var(--forest);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--forest); color: var(--white); }
+
+  /* Hero image */
+  .hero-img-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 85vh;
+  }
+  .hero-img-placeholder {
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    background: linear-gradient(160deg, var(--sand) 0%, #D6C4A8 100%);
+    border-radius: 320px 320px 40px 40px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--bark);
+  }
+  .hero-img-placeholder svg { width: 64px; height: 64px; opacity: 0.5; }
+  .hero-img-placeholder span { font-size: 13px; opacity: 0.6; }
+  .hero-badge {
+    position: absolute;
+    bottom: 40px;
+    right: -20px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    font-size: 13px;
+    color: var(--charcoal);
+    max-width: 180px;
+    text-align: center;
+  }
+  .hero-badge strong {
+    display: block;
+    font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--terracota);
+    margin-bottom: 4px;
+  }
+
+  /* ── LOGOS / SOCIAL PROOF ── */
+  .social-proof {
+    background: var(--sand);
+    padding: 32px 5vw;
+    text-align: center;
+  }
+  .social-proof p {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .proof-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .proof-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--bark);
+  }
+  .proof-item svg { width: 20px; height: 20px; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 96px 5vw; }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--charcoal);
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+  .section-title em { font-style: italic; color: var(--terracota); }
+
+  /* ── PRODUTO/WORKSHOP ── */
+  .product-section {
+    background: var(--forest);
+    color: var(--cream);
+    max-width: 100%;
+  }
+  .product-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .product-section .section-label { color: #A8C4B2; }
+  .product-section .section-title { color: var(--cream); }
+  .product-section .section-title em { color: #C4E0D0; }
+  .product-desc { color: #B8C8C0; font-size: 16px; margin-bottom: 32px; }
+  .product-features { list-style: none; margin-bottom: 40px; }
+  .product-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: #D4E4DC;
+  }
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    background: var(--terracota);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .check-icon::after {
+    content: '✓';
+    color: white;
+    font-size: 11px;
+  }
+  .product-card {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 40px;
+    color: var(--charcoal);
+  }
+  .product-card-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .product-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+  .product-card .date {
+    font-size: 14px;
+    color: var(--terracota);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .product-card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .product-card-price span {
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+  .product-card-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .product-card .btn-primary { width: 100%; text-align: center; display: block; }
+
+  /* ── SOBRE ── */
+  .about-section { background: var(--cream); }
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-img-placeholder {
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #D6C4A8 0%, var(--sand) 100%);
+    border-radius: 200px 200px 40px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--bark);
+    max-width: 380px;
+  }
+  .about-img-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+  .about-img-placeholder span { font-size: 12px; opacity: 0.5; }
+  .about-text p { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
+  .about-text p strong { color: var(--charcoal); font-weight: 500; }
+
+  /* ── DEPOIMENTOS ── */
+  .testimonials-section { background: var(--sand); }
+  .testimonials-section .section-title { margin-bottom: 56px; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: var(--sand);
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    line-height: 1;
+  }
+  .testimonial-text {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.8;
+    padding-top: 32px;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--bark);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 14px; font-weight: 500; color: var(--charcoal); }
+  .author-title { font-size: 12px; color: var(--muted); }
+  .stars { color: var(--terracota); font-size: 14px; margin-bottom: 8px; }
+
+  /* ── PLANOS ── */
+  .plans-section { background: var(--cream); }
+  .plans-section .section-title { margin-bottom: 56px; }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .plan-card {
+    border: 1.5px solid var(--sand);
+    border-radius: 20px;
+    padding: 36px 28px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .plan-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+  .plan-card.featured {
+    background: var(--forest);
+    border-color: var(--forest);
+    color: var(--cream);
+  }
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--terracota);
+    color: white;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .plan-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .plan-card.featured .plan-name { color: var(--cream); }
+  .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .plan-card.featured .plan-desc { color: #A8C4B2; }
+  .plan-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-card.featured .plan-price { color: var(--cream); }
+  .plan-price-note { font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+  .plan-card.featured .plan-price-note { color: #A8C4B2; }
+  .plan-features { list-style: none; margin-bottom: 32px; }
+  .plan-features li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+    color: var(--charcoal);
+  }
+  .plan-card.featured .plan-features li { color: #D4E4DC; }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--terracota);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .plan-card.featured .btn-primary { background: var(--terracota); }
+  .plan-card .btn-secondary { width: 100%; text-align: center; display: block; }
+  .plan-card.featured .btn-primary { width: 100%; text-align: center; display: block; }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--sand); }
+  .faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    border-bottom: 1px solid #D4C8B8;
+    padding: 24px 0;
+  }
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--charcoal);
+    gap: 16px;
+  }
+  .faq-icon {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .faq-answer {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 16px;
+    display: none;
+    line-height: 1.8;
+  }
+  .faq-item.open .faq-answer { display: block; }
+  .faq-item.open .faq-icon { background: var(--terracota); border-color: var(--terracota); color: white; }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    background: var(--terracota);
+    color: var(--white);
+    text-align: center;
+    padding: 100px 5vw;
+  }
+  .cta-section .section-title {
+    color: var(--white);
+    margin: 0 auto 20px;
+    max-width: 600px;
+  }
+  .cta-section p { color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 40px; font-size: 16px; }
+  .btn-white {
+    background: var(--white);
+    color: var(--terracota);
+    padding: 16px 40px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    color: var(--muted);
+    padding: 48px 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--cream);
+    letter-spacing: 0.06em;
+  }
+  footer p { font-size: 13px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--cream); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 48px; min-height: auto; gap: 48px; }
+    .hero-img-wrap { height: 50vw; }
+    .hero-img-placeholder { border-radius: 50% 50% 30px 30px; }
+    .product-inner, .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .testimonials-grid, .plans-grid { grid-template-columns: 1fr; }
+    .about-img-placeholder { display: none; }
+    nav .nav-links { display: none; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text { animation: fadeUp 0.8s ease forwards; }
+  .hero-img-wrap { animation: fadeUp 0.8s 0.2s ease both; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  🌿 Próxima turma de mentoria individual com vagas limitadas — <a href="#planos">Saiba mais</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">lumme</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#planos" class="nav-cta">Trabalhe comigo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1200px;margin:0 auto;">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="hero-tag">@seu.instagram — consultora Notion</span>
+      <h1>Seu espaço de trabalho finalmente organizado. <em>Do seu jeito.</em></h1>
+      <p class="hero-sub">Ajudo empreendedoras a estruturarem seu Notion com método, clareza e leveza — sem sistemas complicados que caem em desuso.</p>
+      <div class="hero-btns">
+        <a href="#planos" class="btn-primary">Quero organizar meu negócio</a>
+        <a href="#sobre" class="btn-secondary">Conhecer meu trabalho ↓</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <div class="hero-img-placeholder">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/></svg>
+        <span>Sua foto aqui</span>
+      </div>
+      <div class="hero-badge">
+        <strong>+50</strong>
+        negócios organizados no Notion
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div class="social-proof">
+  <p>Profissionais que já transformaram sua rotina</p>
+  <div class="proof-row">
+    <div class="proof-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      +50 clientes atendidas
+    </div>
+    <div class="proof-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Especialista em Notion
+    </div>
+    <div class="proof-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Automação & IA para negócios
+    </div>
+    <div class="proof-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      100% personalizado
+    </div>
+  </div>
+</div>
+
+<!-- SERVIÇO / PRODUTO EM DESTAQUE -->
+<section class="product-section" id="servicos">
+  <div class="product-inner">
+    <div>
+      <span class="section-label">Em destaque</span>
+      <h2 class="section-title">Workshop <em>Notion do Zero</em></h2>
+      <p class="product-desc">Aprenda a construir seu hub de negócios no Notion em um dia intensivo, com templates exclusivos e suporte pós-workshop por 7 dias.</p>
+      <ul class="product-features">
+        <li><div class="check-icon"></div> Workspace completo do zero, sem complicação</li>
+        <li><div class="check-icon"></div> Templates exclusivos para seu tipo de negócio</li>
+        <li><div class="check-icon"></div> Gestão de clientes, projetos e finanças</li>
+        <li><div class="check-icon"></div> Suporte ao vivo durante o workshop</li>
+        <li><div class="check-icon"></div> Comunidade de alunas por 30 dias</li>
+      </ul>
+      <a href="#" class="btn-primary">Quero participar →</a>
+    </div>
+    <div class="product-card">
+      <p class="product-card-label">Próxima edição</p>
+      <h3>Workshop Notion do Zero</h3>
+      <p class="date">📅 Substituir pela data · Online via Zoom</p>
+      <div class="product-card-price"><span>R$</span> 297</div>
+      <p class="product-card-sub">ou 3x R$ 109 sem juros</p>
+      <a href="#" class="btn-primary">Garantir minha vaga</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="about-section" id="sobre">
+  <div class="about-inner">
+    <div class="about-img-placeholder">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/></svg>
+      <span>Sua foto aqui</span>
+    </div>
+    <div class="about-text">
+      <span class="section-label">Sobre mim</span>
+      <h2 class="section-title">Olá, eu sou <em>Amanda</em> — e eu entendo a bagunça que pode ser um negócio sem estrutura</h2>
+      <p>Já tentei planilha, caderninho, app de tarefa, post-it... Nada funcionava porque <strong>não estava organizado para o MEU jeito de trabalhar.</strong></p>
+      <p>Quando descobri o Notion, encontrei uma ferramenta que eu podia moldar do zero — e desde então ajudo outras empreendedoras a fazerem o mesmo.</p>
+      <p>Minha abordagem não é só técnica: antes de abrir o Notion, entendo seu negócio, seu fluxo e como você realmente pensa. O sistema que construímos juntas precisa fazer sentido pra você, <strong>não pra mim.</strong></p>
+      <a href="#planos" class="btn-primary" style="margin-top:8px;">Conhecer os serviços →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials-section" id="depoimentos">
+  <div style="max-width:1200px;margin:0 auto;">
+    <span class="section-label">O que dizem</span>
+    <h2 class="section-title">Resultados que falam <em>por si</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Antes do workshop eu abria o Notion e fechava porque não sabia por onde começar. Hoje tenho tudo em um lugar só e finalmente sinto que controlo meu negócio.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">J</div>
+          <div>
+            <div class="author-name">Juliana M.</div>
+            <div class="author-title">Designer freelance</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">A Amanda tem uma habilidade rara de entender como você pensa e criar um sistema que encaixa perfeitamente na sua realidade. Meu CRM no Notion é incrível.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">C</div>
+          <div>
+            <div class="author-name">Carolina S.</div>
+            <div class="author-title">Coach de carreira</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Investi na mentoria individual e foi o melhor dinheiro que gastei no meu negócio esse ano. Saí com o workspace completo e sabendo usar cada parte dele.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div>
+            <div class="author-name">Renata B.</div>
+            <div class="author-title">Nutricionista</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="plans-section" id="planos">
+  <div style="max-width:1200px;margin:0 auto;">
+    <span class="section-label">Trabalhe comigo</span>
+    <h2 class="section-title">Escolha o caminho certo para <em>o seu momento</em></h2>
+    <div class="plans-grid">
+
+      <div class="plan-card">
+        <div class="plan-name">Workshop</div>
+        <p class="plan-desc">Aprenda Notion em grupo, com estrutura e acompanhamento</p>
+        <div class="plan-price">R$ 297</div>
+        <p class="plan-price-note">ou 3x R$ 109 sem juros</p>
+        <ul class="plan-features">
+          <li>Dia intensivo online (4h)</li>
+          <li>Templates exclusivos inclusos</li>
+          <li>Suporte por 7 dias no grupo</li>
+          <li>Acesso à gravação por 30 dias</li>
+        </ul>
+        <a href="#" class="btn-secondary">Quero participar</a>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">Mais completo</div>
+        <div class="plan-name">Mentoria Individual</div>
+        <p class="plan-desc">Seu workspace construído ao vivo, do seu jeito, com suporte</p>
+        <div class="plan-price">R$ 897</div>
+        <p class="plan-price-note">ou 6x R$ 161 sem juros</p>
+        <ul class="plan-features">
+          <li>2 sessões ao vivo (90min cada)</li>
+          <li>Workspace 100% personalizado</li>
+          <li>Templates sob medida</li>
+          <li>Suporte por 30 dias via WhatsApp</li>
+          <li>Gravações das sessões</li>
+        </ul>
+        <a href="#" class="btn-primary">Quero a mentoria</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Setup Completo</div>
+        <p class="plan-desc">Para quem precisa de um sistema pronto e funcionando logo</p>
+        <div class="plan-price">R$ 1.497</div>
+        <p class="plan-price-note">ou 10x R$ 163 sem juros</p>
+        <ul class="plan-features">
+          <li>Diagnóstico e mapeamento completo</li>
+          <li>Workspace construído por mim</li>
+          <li>Treinamento de uso (2h)</li>
+          <li>Suporte por 60 dias</li>
+          <li>Revisão após 30 dias de uso</li>
+        </ul>
+        <a href="#" class="btn-secondary">Quero o setup</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <span class="section-label">Dúvidas frequentes</span>
+    <h2 class="section-title">Tudo que você <em>precisa saber</em></h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Precisa saber usar o Notion antes?
+        <div class="faq-icon">+</div>
+      </div>
+      <p class="faq-answer">Não! Todos os meus serviços foram criados para funcionar desde o zero absoluto. Se você nunca abriu o Notion na vida, tudo bem — começamos por lá.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Para que tipo de negócio funciona?
+        <div class="faq-icon">+</div>
+      </div>
+      <p class="faq-answer">Para praticamente qualquer negócio digital ou de serviços: coaches, designers, consultoras, terapeutas, nutricionistas, agências e muito mais. Na mentoria, entendo o seu contexto antes de começar.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        O atendimento é online ou presencial?
+        <div class="faq-icon">+</div>
+      </div>
+      <p class="faq-answer">100% online, via Zoom. Isso permite atender pessoas de todo o Brasil sem nenhum custo extra.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        E se eu não gostar do resultado?
+        <div class="faq-icon">+</div>
+      </div>
+      <p class="faq-answer">Antes de qualquer entrega, fazemos uma sessão de alinhamento onde entendo exatamente o que você precisa. Ao longo do processo, você pode pedir ajustes. Trabalho até você estar satisfeita com o resultado.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Como funciona o suporte pós-entrega?
+        <div class="faq-icon">+</div>
+      </div>
+      <p class="faq-answer">Dependendo do plano, você terá acesso a um grupo ou canal no WhatsApp para tirar dúvidas durante o período de suporte. Respondo em até 24h nos dias úteis.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <span class="section-label" style="color:rgba(255,255,255,0.6);">Vamos começar</span>
+  <h2 class="section-title">Seu negócio organizado está a uma decisão de distância</h2>
+  <p>Não espere o momento perfeito. Construímos juntas um sistema que funciona com a realidade que você tem hoje.</p>
+  <a href="#planos" class="btn-white">Quero começar agora →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">lumme</div>
+  <p>© 2025 Lumme Notion Consulting · Feito com cuidado ✦</p>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Stagger reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.testimonial-card, .plan-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
